@@ -7,7 +7,9 @@ import java.util.stream.IntStream;
 /**
  * This program simulates a Round Robin Implementation
  * 
- * @author LeonardoRP UniCEUB - Sistemas Embarcados 09/08/2021
+ * @author LeonardoRP - Leonardo Andrade Rosignoli Pereira 
+ * UniCEUB - Sistemas Embarcados 
+ * 09/08/2021
  */
 
 public class RoundRobin {
@@ -32,13 +34,14 @@ public class RoundRobin {
 			rem_bt[i] = processos[i][2];
 		}
 
-		int time = 0; // total value to be added to WaiingTime
-		int overhead = 1; // hypothetical value to represent time spent on changing processes
-
+		int time = 0; // total value to be added to WaitingTime
+		int overhead = 0; // hypothetical value to represent time spent on changing processes
+		System.out.println("Timeline:");
 		while (true) {
-			boolean ended = true; // control value that signalizes if a processes has ended.
+			boolean ended = true; // control variable that signalizes if a processes has ended.
 
 			for (int i = 0; i < qnt_processos; i++) {
+				System.out.print("(Tempo:" + time + ", " + (char) (processos[i][0] + 65) + ")\t");// prints the table
 				time += overhead; // Adds a overHead value each time the process changes
 
 				if (rem_bt[i] > 0) { // if > 0 it means the process still hasn't ended
@@ -62,6 +65,7 @@ public class RoundRobin {
 				break; // the desired outcome, which is to run the process completely.
 
 		}
+		System.out.println("\n");
 		return wt;
 
 	}
@@ -135,18 +139,20 @@ public class RoundRobin {
 		System.out.println("Quantum Value: ");
 		int quantum = sc.nextInt();
 
-		sc.close();
+		sc.close(); // closes the scanner to avoid warnings
 
+		// calls the functions to get average values
 		int[] wt = new int[qnt_processos];
 		wt = roundRobinImp(qnt_processos, processos, quantum);
 		int[] tat = new int[qnt_processos];
 		tat = turnAroundTime(qnt_processos, processos, wt);
 
-		System.out
-				.print("| Process |\t| Burst Time |\t\t| Arrival Time |\t| Waiting Time |\t| Turn-Around Time |\t | Exit Time |\n\n");
+		// loop to print the data
+		System.out.print(
+				"| Process |\t| Burst Time |\t\t| Arrival Time |\t| Waiting Time |\t| Turn-Around Time |\t | Exit Time |\n\n");
 		for (int i = 0; i < qnt_processos; i++)
 			System.out.print((char) (processos[i][0] + 65) + "\t\t\t" + processos[i][2] + "\t\t\t" + processos[i][1]
-					+ "\t\t\t" + wt[i] + "\t\t\t" + tat[i] + "\t\t\t"+(tat[i]-processos[i][1])+"\n");
+					+ "\t\t\t" + wt[i] + "\t\t\t" + tat[i] + "\t\t\t" + (tat[i] - processos[i][1]) + "\n");
 
 		System.out.println("Average Waiting Time: " + averageWt(wt, qnt_processos));
 		System.out.println("Average Turn-Around Time: " + averageTat(tat, qnt_processos));
