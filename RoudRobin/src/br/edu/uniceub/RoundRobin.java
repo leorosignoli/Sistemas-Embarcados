@@ -152,7 +152,7 @@ public class RoundRobin {
 				"| Process |\t| Burst Time |\t\t| Arrival Time |\t| Waiting Time |\t| Turn-Around Time |\t | Exit Time |\n\n");
 		for (int i = 0; i < qnt_processos; i++)
 			System.out.print((char) (processos[i][0] + 65) + "\t\t\t" + processos[i][2] + "\t\t\t" + processos[i][1]
-					+ "\t\t\t" + wt[i] + "\t\t\t" + tat[i] + "\t\t\t" + (tat[i] - processos[i][1]) + "\n");
+					+ "\t\t\t" + wt[i] + "\t\t\t" + tat[i] + "\t\t\t" + (tat[i] + processos[i][1]) + "\n");
 
 		System.out.println("Average Waiting Time: " + averageWt(wt, qnt_processos));
 		System.out.println("Average Turn-Around Time: " + averageTat(tat, qnt_processos));
